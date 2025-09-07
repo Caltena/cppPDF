@@ -1,0 +1,27 @@
+cmake_minimum_required(VERSION 3.10)
+project(RestServer)
+
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+# Find packages
+find_package(cpprestsdk REQUIRED)
+find_package(Boost REQUIRED COMPONENTS system)
+find_package(OpenSSL REQUIRED)
+
+
+
+# Create executable
+add_executable(rest_server main.cpp)
+
+# Link libraries
+target_link_libraries(rest_server 
+    PRIVATE 
+    cpprestsdk::cpprest
+    ${Boost_LIBRARIES}
+    OpenSSL::SSL
+    OpenSSL::Crypto
+)
+
+# Include directories
+target_include_directories(rest_server PRIVATE ${Boost_INCLUDE_DIRS})
